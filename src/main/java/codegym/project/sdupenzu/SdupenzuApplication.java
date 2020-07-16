@@ -1,0 +1,13 @@
+package codegym.project.sdupenzu;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+@SpringBootApplication
+public class SdupenzuApplication {
+
+    public static void main(String[] args) {
+        SpringApplication.run(SdupenzuApplication.class, args);
+    }
+
+}
