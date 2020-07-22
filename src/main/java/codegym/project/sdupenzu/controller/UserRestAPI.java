@@ -15,7 +15,7 @@ import java.util.Optional;
 
 @CrossOrigin(origins = "*")
 @RestController
-@RequestMapping("/api/auth")
+@RequestMapping("/api/sdu")
 public class UserRestAPI {
     @Autowired
     private IUserService userService;
