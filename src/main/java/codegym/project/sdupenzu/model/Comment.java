@@ -14,8 +14,8 @@ public class Comment {
 
     private String date;
     private Boolean isEdit;
-//    private Long idDiary;
-//    private Long idAlbum;
+    private Long idDiary;
+    private Long idAlbum;
 
     @ManyToOne
     private Diary diary;
@@ -29,14 +29,14 @@ public class Comment {
     public Comment() {
     }
 
-//    public Comment(String content, String date, Boolean isEdit, Long idDiary, Diary diary, User user) {
-//        this.content = content;
-//        this.date = date;
-//        this.isEdit = isEdit;
-//        this.idDiary = idDiary;
-//        this.diary = diary;
-//        this.user = user;
-//    }
+    public Comment(String content, String date, Boolean isEdit, Long idDiary, Diary diary, User user) {
+        this.content = content;
+        this.date = date;
+        this.isEdit = isEdit;
+        this.idDiary = idDiary;
+        this.diary = diary;
+        this.user = user;
+    }
 
     public Comment(String content, String date, Boolean isEdit, Diary diary, User user) {
         this.content = content;
@@ -86,21 +86,21 @@ public class Comment {
         isEdit = edit;
     }
 
-//    public Long getIdDiary() {
-//        return idDiary;
-//    }
-//
-//    public void setIdDiary(Long idDiary) {
-//        this.idDiary = idDiary;
-//    }
-//
-//    public Long getIdAlbum() {
-//        return idAlbum;
-//    }
-//
-//    public void setIdAlbum(Long idAlbum) {
-//        this.idAlbum = idAlbum;
-//    }
+    public Long getIdDiary() {
+        return idDiary;
+    }
+
+    public void setIdDiary(Long idDiary) {
+        this.idDiary = idDiary;
+    }
+
+    public Long getIdAlbum() {
+        return idAlbum;
+    }
+
+    public void setIdAlbum(Long idAlbum) {
+        this.idAlbum = idAlbum;
+    }
 
     public Diary getDiary() {
         return diary;
