@@ -30,7 +30,7 @@ import java.util.Set;
 
 @CrossOrigin(origins = "*")
 @RestController
-@RequestMapping("/api/auth")
+@RequestMapping("/api/sdu")
 public class AuthRestAPIs {
     @Autowired
     private AuthenticationManager authenticationManager;
@@ -48,7 +48,7 @@ public class AuthRestAPIs {
     private JwtProvider jwtProvider;
 
     //    =====Sigin
-    @PostMapping("/signin")
+    @PostMapping("/login")
     public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginForm loginRequest) {
 
         Authentication authentication = authenticationManager.authenticate(
@@ -69,7 +69,7 @@ public class AuthRestAPIs {
         ));
     }
 
-    @PostMapping("/signup")
+    @PostMapping("/register")
     public ResponseEntity<?> registerUser(@Valid @RequestBody SignUpForm signUpRequest) {
         if (userService.existsByUsername(signUpRequest.getUsername())) {
             return new ResponseEntity<>(new ResponseMessage("Fail -> Username is already taken!"), HttpStatus.BAD_REQUEST);
