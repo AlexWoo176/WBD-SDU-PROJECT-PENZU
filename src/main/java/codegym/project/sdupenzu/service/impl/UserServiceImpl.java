@@ -40,7 +40,7 @@ public class UserServiceImpl implements IUserService {
 
     @Override
     public Iterable<User> findAll() {
-        return findAll();
+        return repository.findAll();
     }
 
     @Override
