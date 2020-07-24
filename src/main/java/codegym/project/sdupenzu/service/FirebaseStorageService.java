@@ -4,46 +4,56 @@ import codegym.project.sdupenzu.model.Album;
 import codegym.project.sdupenzu.model.Diary;
 import codegym.project.sdupenzu.model.Image;
 import codegym.project.sdupenzu.model.User;
-import com.google.auth.oauth2.GoogleCredentials;
 import com.google.cloud.storage.Acl;
 import com.google.cloud.storage.Blob;
 import com.google.cloud.storage.BlobId;
 import com.google.cloud.storage.Bucket;
 import com.google.firebase.FirebaseApp;
-import com.google.firebase.FirebaseOptions;
 import com.google.firebase.cloud.StorageClient;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.List;
 
 public abstract class FirebaseStorageService<T> {
 
     private StorageClient getFirebaseStorage() {
         try {
-            GoogleCredentials credentials = GoogleCredentials.getApplicationDefault();
-            FirebaseOptions options = FirebaseOptions.builder()
-                    .setCredentials(credentials)
-                    .setDatabaseUrl("https://project-sduteam.firebaseio.com")
-                    .setStorageBucket("project-sduteam.appspot.com")
-                    .build();
+            FirebaseApp firebaseApp = FirebaseAppService.getFirebaseApp();
 
-            FirebaseApp fireApp = null;
-            List<FirebaseApp> firebaseApps = FirebaseApp.getApps();
-            if (firebaseApps != null && !firebaseApps.isEmpty()) {
-                for (FirebaseApp app : firebaseApps) {
-                    if (app.getName().equals(FirebaseApp.DEFAULT_APP_NAME))
-                        fireApp = app;
-                }
-            } else {
-                fireApp = FirebaseApp.initializeApp(options);
-            }
-            return StorageClient.getInstance(fireApp);
+            return StorageClient.getInstance(firebaseApp);
         } catch (IOException e) {
             throw new RuntimeException("Could not get admin-sdk json file. Please try again!", e);
         }
     }
+
+//    private StorageClient getFirebaseStorage() {
+//        try {
+//            FileInputStream serviceAccount =
+//                    new FileInputStream("C:/Users/Admin/Desktop/Project Sdu Team/alexwoo.json");
+//
+//            GoogleCredentials credentials = GoogleCredentials.fromStream(serviceAccount);
+//            FirebaseOptions options = FirebaseOptions.builder()
+//                    .setCredentials(credentials)
+//                    .setDatabaseUrl("https://alexwoo-project.firebaseio.com")
+//                    .setStorageBucket("alexwoo-project.appspot.com")
+//                    .build();
+//
+//            FirebaseApp fireApp = null;
+//            List<FirebaseApp> firebaseApps = FirebaseApp.getApps();
+//            if (firebaseApps != null && !firebaseApps.isEmpty()) {
+//                for (FirebaseApp app : firebaseApps) {
+//                    if (app.getName().equals(FirebaseApp.DEFAULT_APP_NAME))
+//                        fireApp = app;
+//                }
+//            } else {
+//                fireApp = FirebaseApp.initializeApp(options);
+//            }
+//            return StorageClient.getInstance(fireApp);
+//        } catch (IOException e) {
+//            throw new RuntimeException("Could not get admin-sdk json file. Please try again!", e);
+//        }
+//    }
 
     private String getNewExtension(MultipartFile file) {
         String originalFileName = file.getOriginalFilename();
@@ -99,7 +109,7 @@ public abstract class FirebaseStorageService<T> {
                 blobString = "user/" + fileName;
             }
 
-            Blob blob = bucket.create(blobString, testFile, Bucket.BlobWriteOption.userProject("project-sduteam"));
+            Blob blob = bucket.create(blobString, testFile, Bucket.BlobWriteOption.userProject("AlexWoo-Project"));
             bucket.getStorage().updateAcl(blob.getBlobId(), Acl.of(Acl.User.ofAllUsers(), Acl.Role.READER));
             String blobName = blob.getName();
 
